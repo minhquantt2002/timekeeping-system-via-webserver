@@ -1,0 +1,12 @@
+uvicorn
+fastapi
+PyMySQL
+Jinja2
+jinja2-time
+SQLAlchemy
+manage-fastapi
+alembic
+gunicorn
+python-multipart
+pydantic
+requests

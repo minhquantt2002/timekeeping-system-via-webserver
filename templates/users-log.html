@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+
+  <style>
+    html {
+      font-family: Arial;
+      display: inline-block;
+      margin: 0px auto;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    ul.topnav {
+      list-style-type: none;
+      margin: auto;
+      padding: 0;
+      overflow: hidden;
+      background-color: #081770;
+    }
+
+    ul.topnav li {
+      float: left;
+    }
+
+    ul.topnav li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    ul.topnav li a:hover:not(.active) {
+      background-color: #02101f;
+    }
+
+    ul.topnav li a.active {
+      background-color: #333;
+    }
+
+    ul.topnav li.right {
+      float: right;
+    }
+
+    @media screen and (max-width: 600px) {
+
+      ul.topnav li.right,
+      ul.topnav li {
+        float: none;
+      }
+    }
+
+    .btn-edit {
+      background: #ffc107;
+      border: none;
+      text-decoration: underline;
+    }
+
+    .btn-delete {
+      background: #cd6e77;
+      border: none;
+      text-decoration: underline;
+    }
+
+    .box-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .btn-add {
+      border: none;
+      background-color: #13b570;
+    }
+
+    button {
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .modal {
+      width: 90%;
+      padding: 12px;
+      background-color: white;
+      height: auto;
+      top: 50%;
+      left: 50%;
+      display: block;
+      transform: translate(-50%, -50%);
+    }
+
+    .fadee {
+      display: none;
+      height: 100vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  </style>
+  <title>Theo dõi chấm công</title>
+</head>
+
+<body style="min-height: 100vh;">
+  <ul class="topnav">
+    <li><a href="/">Trang chủ</a></li>
+    <li><a href="/users">Danh sách nhân viên</a></li>
+    <li><a class="active" href="/user-logs">Theo dõi chấm công</a></li>
+    <li><a href="/read-card">Đọc thẻ</a></li>
+  </ul>
+  <br>
+  <div class="container">
+    <h3 style="margin-bottom: 20px;">Theo dõi chấm công</h3>
+    <div class="row">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr bgcolor="#10a0c5" color="#FFFFFF">
+            <th>ID</th>
+            <th>CardID</th>
+            <th>Họ và tên</th>
+            <th>Ngày checkin</th>
+            <th>Giờ vào</th>
+            <th>Giờ ra</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user_log in user_logs %}
+          <tr>
+            <td>{{ user_log.user.id }}</td>
+            <td>{{ user_log.user.card_id }}</td>
+            <td>{{ user_log.user.name }}</td>
+            <td>{{ user_log.checkin_date }}</td>
+            <td>{{ user_log.time_in }}</td>
+            <td>{{ user_log.time_out }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

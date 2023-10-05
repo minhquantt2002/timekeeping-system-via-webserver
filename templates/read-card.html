@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta charset="utf-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      html {
+        font-family: Arial;
+        display: inline-block;
+        margin: 0px auto;
+      }
+
+      textarea {
+        resize: none;
+      }
+
+      ul.topnav {
+        list-style-type: none;
+        margin: auto;
+        padding: 0;
+        overflow: hidden;
+        background-color: #081770;
+      }
+
+      ul.topnav li {
+        float: left;
+      }
+
+      ul.topnav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      ul.topnav li a:hover:not(.active) {
+        background-color: #02101f;
+      }
+
+      ul.topnav li a.active {
+        background-color: #333;
+      }
+
+      ul.topnav li.right {
+        float: right;
+      }
+
+      @media screen and (max-width: 600px) {
+        ul.topnav li.right,
+        ul.topnav li {
+          float: none;
+        }
+      }
+
+      .btn-edit {
+        background: #ffc107;
+        border: none;
+        text-decoration: underline;
+      }
+
+      .btn-delete {
+        background: #cd6e77;
+        border: none;
+        text-decoration: underline;
+      }
+
+      .box-top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .btn-add {
+        border: none;
+        background-color: #13b570;
+      }
+
+      button {
+        border: none;
+        border-radius: 4px;
+      }
+
+      button:hover {
+        opacity: 0.8;
+      }
+
+      .modal {
+        width: 90%;
+        padding: 12px;
+        background-color: white;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        display: block;
+        transform: translate(-50%, -50%);
+      }
+
+      .fadee {
+        display: none;
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      td {
+        font-weight: bold;
+      }
+
+      .checkout {
+        text-transform: uppercase;
+        color: #b82500;
+        font-size: 25px;
+      }
+
+      .checkin {
+        text-transform: uppercase;
+        color: #02af6d;
+        font-size: 25px;
+      }
+    </style>
+
+    <title>Đọc thẻ</title>
+  </head>
+
+  <body style="min-height: 100vh">
+    <ul class="topnav">
+      <li><a href="/">Trang chủ</a></li>
+      <li><a href="/users">Danh sách nhân viên</a></li>
+      <li><a href="/user-logs">Theo dõi chấm công</a></li>
+      <li>
+        <a
+          class="active"
+          href="/read-card"
+          >Đọc thẻ</a
+        >
+      </li>
+    </ul>
+    <br />
+    <h3
+      align="center"
+      style="margin-bottom: 20px"
+    >
+      Quẹt thẻ để chấm công
+    </h3>
+
+    <div id="show_user_data">
+      <form>
+        <table
+          width="450"
+          border="1"
+          bordercolor="#10a0c5"
+          align="center"
+          bgcolor="#000"
+        >
+          <tr>
+            <td
+              height="40"
+              style="padding: 12px"
+              align="center"
+              bgcolor="#10a0c5"
+            >
+              <b>Thông tin nhân viên</b>
+            </td>
+          </tr>
+          <tr>
+            <td
+              bgcolor="#f9f9f9"
+              style="padding: 12px"
+            >
+              <table
+                width="450"
+                border="0"
+                align="center"
+                cellpadding="5"
+              >
+                <tr>
+                  <td
+                    colspan="3"
+                    align="center"
+                    style="display: none"
+                    class="checkin"
+                  >
+                    NV vào làm: 20:05:12
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    colspan="3"
+                    align="center"
+                    style="display: none"
+                    class="checkout"
+                  >
+                    NV tan làm: 20:05:12
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    colspan="3"
+                    align="center"
+                    height="200"
+                  >
+                    <img
+                      id="img"
+                      height="100%"
+                      src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
+                      alt="Ảnh nhân viên"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    width="120"
+                    align="left"
+                    class="lf"
+                  >
+                    Mã nhân viên
+                  </td>
+                  <td>:</td>
+                  <td
+                    align="left"
+                    id="user_id"
+                  >
+                    ------------------------------------------
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    width="120"
+                    align="left"
+                    class="lf"
+                  >
+                    Mã Thẻ
+                  </td>
+                  <td>:</td>
+                  <td
+                    align="left"
+                    id="card_id"
+                  >
+                    ------------------------------------------
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    align="left"
+                    class="lf"
+                  >
+                    Họ và tên
+                  </td>
+                  <td>:</td>
+                  <td
+                    align="left"
+                    id="name"
+                  >
+                    ------------------------------------------
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    align="left"
+                    class="lf"
+                  >
+                    Email
+                  </td>
+                  <td>:</td>
+                  <td
+                    align="left"
+                    id="email"
+                  >
+                    ------------------------------------------
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    align="left"
+                    class="lf"
+                  >
+                    Số điện thoại
+                  </td>
+                  <td>:</td>
+                  <td
+                    align="left"
+                    id="phone_number"
+                  >
+                    ------------------------------------------
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    align="left"
+                    class="lf"
+                  >
+                    Ngày sinh
+                  </td>
+                  <td>:</td>
+                  <td
+                    align="left"
+                    id="dob"
+                  >
+                    ------------------------------------------
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    align="left"
+                    class="lf"
+                  >
+                    Giới tính
+                  </td>
+                  <td>:</td>
+                  <td
+                    align="left"
+                    id="gender"
+                  >
+                    ------------------------------------------
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+  <script>
+    var ws = new WebSocket('ws://127.0.0.1:8000/read-card');
+    const img = document.getElementById('img');
+    const checkin = document.getElementsByClassName('checkin')[0];
+    const checkout = document.getElementsByClassName('checkout')[0];
+    const user_id = document.getElementById('user_id');
+    const card_id = document.getElementById('card_id');
+    const phone_number = document.getElementById('phone_number');
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const dob = document.getElementById('dob');
+    const gender = document.getElementById('gender');
+    console.log('surface');
+    ws.onmessage = function (event) {
+      const infor = JSON.parse(event.data);
+      console.log(infor);
+      img.src = infor['user']['image_url'];
+      user_id.innerHTML = infor['user']['id'];
+      card_id.innerHTML = infor['user']['card_id'];
+      phone_number.innerHTML = infor['user']['phone_number'];
+      name.innerHTML = infor['user']['name'];
+      email.innerHTML = infor['user']['email'];
+      dob.innerHTML = infor['user']['dob'];
+      gender.innerHTML = infor['user']['gender'];
+
+      if (infor['time_out'] === null && infor['time_in'] !== null) {
+        checkin.style.display = '';
+        checkin.innerHTML =
+          'Checkin at: ' + infor['time_in'] + ' ' + infor['checkin_date'];
+      } else {
+        checkout.style.display = '';
+        checkout.innerHTML =
+          'Checkout at: ' + infor['time_out'] + ' ' + infor['checkin_date'];
+      }
+
+      setTimeout(() => {
+        checkin.style.display = 'none';
+        checkout.style.display = 'none';
+        img.src = '';
+        user_id.innerHTML = '------------------------------------------';
+        card_id.innerHTML = '------------------------------------------';
+        phone_number.innerHTML = '------------------------------------------';
+        name.innerHTML = '------------------------------------------';
+        email.innerHTML = '------------------------------------------';
+        dob.innerHTML = '------------------------------------------';
+        gender.innerHTML = '------------------------------------------';
+      }, 5000);
+    };
+  </script>
+</html>
