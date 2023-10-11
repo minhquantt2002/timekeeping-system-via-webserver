@@ -10,4 +10,4 @@ gunicorn
 python-multipart
 pydantic
 requests
-pysqlite
+pysqlite3
