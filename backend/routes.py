@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from .database import get_db, engine
-from . import crud, models, schemas
+from . import crud, schemas
 import datetime
 
 templates = Jinja2Templates(directory="templates")

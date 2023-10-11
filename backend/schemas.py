@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from fastapi import Request
 from typing import Optional
-from datetime import datetime
 
 
 class User(BaseModel):
